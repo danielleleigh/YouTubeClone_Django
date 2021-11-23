@@ -1,20 +1,20 @@
 from django.shortcuts import render
-from .models import Video
-from .serializers import VideoSerializer
+from .serializers import CommentSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import serializers, status
+from .models import Comment
 
 # Create your views here.
 
 class VideoList(APIView):
     def get(self, request):
-        video = Video.objects.all()
-        serializer = VideoSerializer(video, many=True)
+        video = Comment.objects.all()
+        serializer = CommentSerializer(video, many=True)
         return Response(serializer.data)
     
     def post(self,request):
-        serializer = VideoSerializer(data=request.data)
+        serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -24,20 +24,20 @@ class VideoDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
+            return Comment.objects.get(pk=pk)
+        except Comment.DoesNotExist:
             raise Http404
 
     #get by id
     def get(self, request, pk):
-        video = self.get_object(pk)
-        serializer = VideoSerializer(video)
+        Comment = self.get_object(pk)
+        serializer = CommentSerializer(Comment)
         return Response(serializer.data)
 
     #update
     def put(self, request, pk):
-        video = self.get_object(pk)
-        serializer = VideoSerializer(video, data=request.data)
+        Comment = self.get_object(pk)
+        serializer = CommentSerializer(Comment, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
