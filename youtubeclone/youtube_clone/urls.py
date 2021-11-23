@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('video/', views.VideoList.as_view()),
-    path('video/video_id/', views.VideoDetail.as_view())
+    path('comment/', views.CommentList.as_view()),
+    path('comment/video_id/', views.CommentDetail.as_view())
+
 
 ]
 
