@@ -30,14 +30,14 @@ class CommentDetail(APIView):
 
     #get by id
     def get(self, request, pk):
-        Comment = self.get_object(pk)
-        serializer = CommentSerializer(Comment)
+        comment = self.get_object(pk)
+        serializer = CommentSerializer(comment)
         return Response(serializer.data)
 
     #update
     def put(self, request, pk):
-        Comment = self.get_object(pk)
-        serializer = CommentSerializer(Comment, data=request.data)
+        comment = self.get_object(pk)
+        serializer = CommentSerializer(comment, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -51,8 +51,8 @@ class CommentDetail(APIView):
     
 class ReplyList(APIView):
     def get(self, request):
-        video = Reply.objects.all()
-        serializer = ReplySerializer(video, many=True)
+        reply = Reply.objects.all()
+        serializer = ReplySerializer(reply, many=True)
         return Response(serializer.data)
     
     def post(self,request):
@@ -72,14 +72,14 @@ class ReplyDetail(APIView):
 
     #get by id
     def get(self, request, pk):
-        Reply = self.get_object(pk)
-        serializer = ReplySerializer(Reply)
+        reply = self.get_object(pk)
+        serializer = ReplySerializer(reply)
         return Response(serializer.data)
 
     #update
     def put(self, request, pk):
-        Reply = self.get_object(pk)
-        serializer = ReplySerializer(Reply, data=request.data)
+        reply = self.get_object(pk)
+        serializer = ReplySerializer(reply, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
