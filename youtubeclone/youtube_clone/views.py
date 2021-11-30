@@ -29,13 +29,13 @@ class CommentDetail(APIView):
             raise Http404
 
     #get by id
-    def get(self, request, pk):
-        comment = self.get_object(pk)
-        serializer = CommentSerializer(comment)
+    def get(self, request, video_id):
+        comment = Comment.objects.filter(video_id=video_id)
+        serializer = CommentSerializer(comment, many=True)
         return Response(serializer.data)
 
     #update
-    def put(self, request, pk):
+    def put(self, request, video_id):
         comment = self.get_object(pk)
         serializer = CommentSerializer(comment, data=request.data)
         if serializer.is_valid():
